@@ -1,6 +1,8 @@
 call plug#begin('~/.vim/plugged')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'keith/swift.vim'
+Plug 'ryanolsonx/vim-lsp-swift'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-flow.vim'
@@ -12,6 +14,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'google/vim-jsonnet'
+
 call plug#end()
 
 let g:ale_linters = {
@@ -61,6 +64,17 @@ if executable('flow')
 endif
 let g:javascript_plugin_flow = 1
 
+" Go
+let g:go_def_mode='gopls'
+call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+    \ 'name': 'gocode',
+    \ 'whitelist': ['go'],
+    \ 'completor': function('asyncomplete#sources#gocode#completor'),
+    \ 'config': {
+    \    'gocode_path': expand('~/go/bin/gocode')
+    \  },
+    \ }))
+
 " General completion & linting setup
 let g:asyncomplete_smart_completion = 1
 let g:asyncomplete_auto_popup = 1
@@ -70,6 +84,7 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
 endif
@@ -85,16 +100,6 @@ let g:ctrlp_user_command = {
   \ 'fallback': 'find %s -type f'
   \ }
 
-" Go
-let g:go_def_mode='gopls'
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/go/bin/gocode')
-    \  },
-    \ }))
 
 " General vim options
 set smartindent
@@ -105,4 +110,4 @@ set clipboard=unnamed
 set hidden
 colorscheme elflord
 :highlight Pmenu ctermbg=gray guibg=gray
-
+autocmd FileType swift nnoremap <C-]> :LspDefinition<CR>
