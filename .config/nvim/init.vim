@@ -61,6 +61,7 @@ if executable('prettier')
   let g:ale_fixers.javascript = g:ale_fixers.javascript + ['prettier']
 endif
 let g:ale_fixers.typescript = g:ale_fixers.javascript
+let g:ale_fixers.flow = g:ale_fixers.javascript
 
 " Javascript / Flow setup
 if executable('flow')
@@ -69,8 +70,8 @@ if executable('flow')
 				\ 'whitelist': ['javascript'],
 				\ 'completor': function('asyncomplete#sources#flow#completor'),
 				\ }))
-  let g:ale_fixers.javascript = g:ale_fixers.javascript + ['flow']
   let g:javascript_plugin_flow = 1
+  let g:ale_linters.javascript = g:ale_linters.javascript + ['flow']
 endif
 
 " General completion & linting setup
