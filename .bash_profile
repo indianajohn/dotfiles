@@ -1,6 +1,3 @@
-alias bzr='bazel run -c opt --config remotecache --config build'
-alias bzt='bazel test -c opt --config remotecache --config build'
-alias bzb='bazel build -c opt --config remotecache --config build'
 alias gcna='git commit --no-verify -am'
 alias gpoc='git push origin `git rev-parse --abbrev-ref HEAD`'
 if [ -e ~/.bashrc ]; then
@@ -26,3 +23,4 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.dotfiles-sbin
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+export PATH="$HOME/dev/ubiquity/ubq/bin:$PATH"
