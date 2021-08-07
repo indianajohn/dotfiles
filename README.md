@@ -8,6 +8,8 @@ Link what you want. Everything is off by default. Some examples are below.
 
 - `ln -s /path/to/repo/.bash_profile ~/.bash_profile`
 
+- `ln -s /path/to/repo/.zprofile ~/.zprofile`
+
 - `ln -s /path/to/repo/.tmux.conf ~/.tmux.conf`
 
 - `ln -s /path/to/repo/.config ~/.config/`
